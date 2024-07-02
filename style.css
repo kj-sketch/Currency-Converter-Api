@@ -77,7 +77,6 @@ form button {
 
 button:hover {
     filter: grayscale(50%);
-    box-shadow: 0 0 5px 1.2px rgb(79, 80, 180);
     background-color:rgb(92, 12, 190);
 }
 button:active {
