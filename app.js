@@ -32,7 +32,7 @@ for(let select of dropdowns){
 
 const updateFlag = (element) => {
     let currCode = element.value;
-    let countryCode = countryList[currCode];
+    let countryCode = countryList[currCode].country;
     let newSrc = `https://flagsapi.com/${countryCode}/flat/64.png`;
      img = element.parentElement.querySelector("img");
      img.src = newSrc;
@@ -59,13 +59,21 @@ const updateExchangeRate = async () => {
    if (!response.ok) {
        throw new Error(`HTTP error! Status: ${response.status}`);
    }
-   // .then(response => response.json())
-   // .then(data => data['usd'].inr)
+//    .then(response => response.json())
+//    .then(data => data['usd'].inr)
    let data = await response.json();
+   console.log(data);
    let rate = data[fromCurr.value.toLowerCase()][toCurr.value.toLowerCase()];
-   
+   //kj Calculate the convert amount
    let finalAmount = amtVal*rate;
-   msg.innerText = `${amtVal} ${fromCurr.value} = ${finalAmount} ${toCurr.value}`
+   let CoversionValue = finalAmount.toFixed(2);
+   //kj Get the currency symbols
+   const fromSymbol = countryList[fromCurr.value].symbol;
+   const toSymbol = countryList[toCurr.value].symbol;
+   
+   //kj Display the result with symbols
+
+   msg.innerText = `${amtVal} ${fromSymbol} = ${CoversionValue} ${toSymbol}`
    } catch (error) {
        console.error('Error fetching the exchange rate', error);
        // Handle the error appropriately
